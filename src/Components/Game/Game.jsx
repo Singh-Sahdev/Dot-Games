@@ -1,40 +1,33 @@
 
-import { DotBoard, BoxBoard,ScoreCard } from ".."
-import {useDispatch,useSelector} from 'react-redux'
-import { updateBoxVals,resetAll } from "../../features/dotSlice"
+import { DotBoard, BoxBoard,ScoreCard,GameOver } from ".."
+import {useDispatch} from 'react-redux'
+import { resetAll} from "../../features/dotSlice"
+import { useLocation,Link } from "react-router-dom"
+
 
 function Game() {
+
+  const location = useLocation()
+  const len = location.state
+  
+
   const dispatch = useDispatch()
 
-  const len = useSelector(state => state.len)
 
-  let boxVal=[]
-    for(let i=0;i<len+1;i++){
-      let temp = []
-      for(let j=0;j<len+1;j++){
-        temp.push({
-          sides:{
-            l:false,
-            b:false,
-            r:false,
-            t:false,
-          },
-          totalSides:0,
-          player:-1
-        })
-      }
-      boxVal.push(temp)
-    }
-    
-    dispatch(updateBoxVals(boxVal))
+  const clickHandler = ()=>{
+    dispatch(resetAll())
+  }
 
+  
+  
 
   return (
-    <div className=' bg-slate-400 h-screen w-screen'>
-      <BoxBoard/>
-      <DotBoard/>
-      <ScoreCard/>
-      <button className='absolute top-5 left-5 rounded-lg bg-gray-300 px-3 text-lg' onClick={()=>dispatch(resetAll())}> Reset </button>
+    <div className=' bg-slate-400 h-screen w-screen [word-spacing:-3px] font-mono'>
+      <DotBoard len={len} />
+      <BoxBoard len={len} />
+      <ScoreCard len={len} />
+      <GameOver clickHandler={clickHandler}/>
+      <Link to='/set' className='absolute top-5 left-5 z-50 rounded-lg bg-gray-300 px-3 text-lg' onClick={clickHandler}> Reset </Link>
     </div>
   )
 }

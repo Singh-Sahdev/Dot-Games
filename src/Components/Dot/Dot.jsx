@@ -6,7 +6,7 @@ import {updateError,updateBoxVals,updateTurn, updateScoreCard} from '../../featu
 
 
 function Dot({
-    margin,
+    pointerEvents,
     row,
     col,
     first,
@@ -16,13 +16,19 @@ function Dot({
   
 
   const dispatch = useDispatch(); // using dispatch function for setting the value of error in the redux store
+
+  const playerColor = useSelector(state => state.playerColor)
   const boxVals = useSelector(state => state.boxVals)
   const turn = useSelector(state => state.turn)
 
-  let style = {margin}
+  let style = {
+    margin:17.3,
+    borderColor:pointerEvents=='auto'?playerColor[Number(turn-1)]:'transparent',
+    pointerEvents
+  }
+
 
   const handleClick = (e)=>{
-    // console.log(`${row} ${col}`)
     dispatch(updateError('')) // initially no error
 
 
@@ -31,8 +37,7 @@ function Dot({
       setFirst([row,col,e.target])
       
       // first click animation
-      e.target.style.backgroundColor = 'gray'
-      // console.log(e.target.style);
+      e.target.style.backgroundColor = 'rgb(203 213 225)'
       e.target.style.scale='1.25'
       
     }
@@ -41,7 +46,7 @@ function Dot({
       let currRow = first[0]
       let currCol = first[1]
       let currDiv = first[2]
-      currDiv.style.backgroundColor = 'black'
+      currDiv.style.backgroundColor = 'rgb(156 163 175)'
       currDiv.style.scale='1'
 
       //edge cases of dot game
@@ -143,7 +148,7 @@ function Dot({
         flag=1
       }
       
-      if(!flag){
+      if(!flag ){
         dispatch(updateTurn())
       }
 
@@ -156,7 +161,7 @@ function Dot({
     
   return (
     //Dot div
-    <div onClick={handleClick} style={style} className={`p-[0.5rem] hover:scale-125 transition-all bg-black rounded-full`}>
+    <div onClick={handleClick}  style={style} className={`p-[0.45rem] border-[1.5px] hover:scale-125 transition-all bg-gray-400 rounded-full`}>
     </div>
   )
 }

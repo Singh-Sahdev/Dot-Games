@@ -1,22 +1,21 @@
 import { useSelector } from 'react-redux'
 import {Box} from '..'
 
-function BoxBoard() {
-
-  const len = useSelector(state => state.len)
+function BoxBoard({
+  len
+}) {
   const boxVals = useSelector(state => state.boxVals)
 
   let cols = ''
-  for (let i = 0; i < len+1; i++) {
+  for (let i = 0; i < len-(-2+1); i++) {
+    console.log('auto done ',len);
     cols+='auto '
   }
-
-  
 
   return (
     <div 
     style={{gridTemplateColumns:`${cols}`}} 
-    className={` absolute z-30 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 grid`}>
+    className={` bg-black rounded-xl absolute z-30 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 grid`}>
 
       {
         boxVals
@@ -48,12 +47,10 @@ function BoxBoard() {
                             k='borderTopWidth'
                         }
                         if(!sides[key]){
-                            // console.log(key);
                             style[k] = '0px'
-                            // console.log(`border-${key}-0`);
                         }
                         else{
-                            style[k] = '2px'
+                            style[k] = '4px'
                         }
                     }
                 }
@@ -61,7 +58,7 @@ function BoxBoard() {
                 if(box.player !=-1){
                   val=`${box.player}`
                 }
-                return <Box style={style} key={`${i} ${j}`} row={Math.floor(i/(len+1))} col = {i%(len+1)} value={val} />
+                return <Box style={style} key={`${i} ${j}`} row={Math.floor(i/(len-(-2+1)))} col = {i%(len-(-2+1))} value={val} />
             })
             }
         )
