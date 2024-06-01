@@ -10,16 +10,11 @@ function Game() {
   const location = useLocation()
   const len = location.state
   
-
   const dispatch = useDispatch()
-
 
   const clickHandler = ()=>{
     dispatch(resetAll())
   }
-
-  
-  
 
   return (
     <div className=' bg-slate-400 h-screen w-screen [word-spacing:-3px] font-mono'>

@@ -8,7 +8,6 @@ function BoxBoard({
 
   let cols = ''
   for (let i = 0; i < len-(-2+1); i++) {
-    console.log('auto done ',len);
     cols+='auto '
   }
 

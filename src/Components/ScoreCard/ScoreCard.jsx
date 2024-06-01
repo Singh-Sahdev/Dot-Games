@@ -9,11 +9,10 @@ function ScoreCard({
     const scoreCard = useSelector(state => state.scoreCard)
     const playerColor = useSelector(state => state.playerColor)
     const turn = useSelector(state => state.turn)
-    
   
     const dispatch = useDispatch()
 
-    let style 
+    let style = {}
 
     if(turn==1){
       style={borderColor:playerColor[0]}
